@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartShop Llama</title>
+    
+    <!-- Bootstrap 4.1 CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+</head>
+
+<body>
+    <div class="container-fluid h-100">
+        <div class="row justify-content-center h-100">
+            <div class="col-md-8 col-xl-6 chat">
+                <div class="card chat-card">
+                    <div class="card-header chat-header">
+                        <div class="d-flex align-items-center">
+                            <div class="img-cont">
+                                <img src="https://cdn-icons-png.flaticon.com/512/4771/4771402.png" class="rounded-circle user-img">
+                            </div>
+                            <div class="user-info">
+                                <h2 class="chat-title">SmartShop Llama</h2>
+                                <p class="chat-tagline">Your <span class="multi-color">OneStop</span> Shopping Adviser!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="messageContainer" class="card-body msg-card-body"></div>
+
+                    <div class="card-footer">
+                        <form id="messageArea" class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-edit"></i></span>
+                            </div>
+                            <input type="text" id="text" name="msg" placeholder="Type your message..." autocomplete="off" class="form-control type-msg" required/>
+                            <div class="input-group-append">
+                                <button type="button" id="edit" class="input-group-text edit-btn"><i class="fas fa-pencil-alt"></i></button>
+                                <button type="submit" id="send" class="input-group-text send-btn"><i class="fas fa-paper-plane"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✅ Only ONE script block now -->
+    <script>
+        $(document).ready(function () {
+            function formatTime(date) {
+                let hour = String(date.getHours()).padStart(2, '0');
+                let minute = String(date.getMinutes()).padStart(2, '0');
+                return `${hour}:${minute}`;
+            }
+
+            function parseMarkdown(text) {
+                return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            }
+
+            $("#messageArea").on("submit", function (event) {
+                event.preventDefault();
+
+                var rawText = $("#text").val().trim();
+                if (!rawText) return; // 🚫 Skip if empty
+
+                const str_time = formatTime(new Date());
+
+                var userHtml = `
+                    <div class="d-flex justify-content-end mb-4">
+                        <div class="msg-container-send">
+                            ${parseMarkdown(rawText)}
+                            <span class="msg-time-send">${str_time}</span>
+                        </div>
+                        <div class="img-cont-msg">
+                            <img src="https://i.ibb.co/d5b84Xw/Untitled-design.png" class="rounded-circle user-img-msg">
+                        </div>
+                    </div>`;
+    
+                $("#text").val("");
+                $("#messageContainer").append(userHtml);
+
+                $.ajax({
+                    data: { msg: rawText },
+                    type: "POST",
+                    url: "/get",
+                }).done(function (data) {
+                    var botHtml = `
+                        <div class="d-flex justify-content-start mb-4">
+                            <div class="img-cont-msg">
+                                <img src="https://static.vecteezy.com/system/resources/previews/016/017/018/non_2x/ecommerce-icon-free-png.png" class="rounded-circle user-img-msg">
+                            </div>
+                            <div class="msg-container">
+                                ${parseMarkdown(data)}
+                                <span class="msg-time">${str_time}</span>
+                            </div>
+                        </div>`;
+                    $("#messageContainer").append($.parseHTML(botHtml));
+                });
+            });
+
+            $("#edit").click(function () {
+                $("#text").focus();
+            });
+        });
+    </script>
+</body>
+</html>

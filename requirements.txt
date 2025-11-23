@@ -1,0 +1,17 @@
+﻿pandas==2.2.2
+
+langchain==0.1.20
+langchain-core==0.1.53
+langchain-community==0.0.38
+
+langchain-groq
+langchain-huggingface
+langchain-astradb
+
+python-dotenv
+pydantic
+requests
+tqdm
+numpy
+gunicorn
+httpx

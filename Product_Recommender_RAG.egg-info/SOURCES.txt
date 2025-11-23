@@ -1,0 +1,9 @@
+setup.py
+Chatbot/__init__.py
+Chatbot/data_converter.py
+Chatbot/data_ingestion.py
+Chatbot/retrieval_generation.py
+Product_Recommender_RAG.egg-info/PKG-INFO
+Product_Recommender_RAG.egg-info/SOURCES.txt
+Product_Recommender_RAG.egg-info/dependency_links.txt
+Product_Recommender_RAG.egg-info/top_level.txt

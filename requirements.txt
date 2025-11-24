@@ -5,9 +5,9 @@ python-dotenv
 
 pandas==2.0.3
 
-langchain==0.1.16
+langchain==0.1.20
 langchain-core==0.1.53
-langchain-community==0.0.29
+langchain-community==0.0.38
 langchain-huggingface
 langchain-astradb
 langchain-groq

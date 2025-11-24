@@ -13,5 +13,5 @@ pydantic
 requests
 tqdm
 numpy
-gunicorn
-httpx
+
+

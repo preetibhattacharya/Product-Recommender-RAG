@@ -1,17 +1,20 @@
-﻿pandas==2.2.2
-
-langchain==0.1.20
-langchain-core==0.1.53
-langchain-community==0.0.38
-
-langchain-groq
-langchain-huggingface
-langchain-astradb
-
+﻿flask
+gunicorn
+uvicorn
 python-dotenv
-pydantic
+
+pandas==2.0.3
+
+langchain==0.1.16
+langchain-core==0.1.53
+langchain-community==0.0.29
+langchain-huggingface==0.0.6
+langchain-astradb==0.3.0
+langchain-groq==0.1.3
+
+astrapy
 requests
-tqdm
 numpy
+
 
 

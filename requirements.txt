@@ -9,8 +9,8 @@ langchain==0.1.20
 langchain-core==0.1.53
 langchain-community==0.0.38
 langchain-huggingface==0.0.3
-langchain-astradb
-langchain-groq
+langchain-astradb==0.4.2
+langchain-groq==0.0.3
 
 astrapy
 requests
